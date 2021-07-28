@@ -69,7 +69,7 @@ export default {
       if (!getters.getAllDeaths.length) {
          await this.$store.dispatch(("getAllDeaths"))
       }
-      if (!getters.getFavorites.length) {
+      if (!getters.getFavorites) {
          await this.$store.dispatch(("getFavoritesList"))
       }
       this.profile = getters.getCharactersProfileByName(this.$route.params.name)
