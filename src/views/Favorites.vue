@@ -1,12 +1,13 @@
 <template>
-   <div v-if="!favorites.length" class="align-self-center">
+   <div v-if="loading" class="align-self-center">
       <Loader />
    </div>
    <div v-else class="favorites" style="width: 100%">
       <h4 class="text-h4 my-3">Favorites</h4>
-      <div class="avatars d-flex flex-wrap justify-space-around">
+      <div v-if="favorites.length" class="avatars d-flex flex-wrap justify-space-around">
          <CharacterCard v-for="char in characters" :key="char.name" :profile="char" />
       </div>
+      <div v-else>There are no favorite characters</div>
    </div>
 </template>
 
@@ -21,7 +22,7 @@ export default {
    components: {CharacterCard, Loader},
    mixins: [sectionName],
    created() {
-      if (!this.favorites.length) {
+      if (this.favorites === null) {
          this.$store.dispatch(("getFavoritesList"))
       }
       if (!this.$store.getters.getAllCharacters.length) {
@@ -29,6 +30,9 @@ export default {
       }
    },
    computed: {
+      loading() {
+         return this.favorites === null
+      },
       favorites() {
          return this.$store.getters.getFavorites
       },

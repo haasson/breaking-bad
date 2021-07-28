@@ -1,6 +1,6 @@
 export default {
    state: {
-      favorites: []
+      favorites: null
    },
    getters: {
       getFavorites: (state) => state.favorites,
